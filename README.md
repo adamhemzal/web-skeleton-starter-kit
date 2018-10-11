@@ -1,1 +1,1 @@
-# hemi-web-skeleton-starter-kit
+# Hemi Web Skeleton Starter Kit
