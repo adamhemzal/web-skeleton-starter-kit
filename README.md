@@ -19,9 +19,13 @@ This is a starter kit for creating **static** websites. It is useful for everyon
 ```
 
 ## Included packages in Gulp.js
+TODO
 
 ## What you need before to run the web starter kit
+TODO
 
 ## How to install and run web starter kit
+TODO
 
 ## Workflow
+TODO
