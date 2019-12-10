@@ -1,0 +1,6 @@
+# Browsers that we support
+# Check queries: https://browserl.ist/
+# Documentation: https://github.com/browserslist/browserslist
+
+defaults
+last 2 versions

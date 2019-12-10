@@ -1,93 +1,87 @@
 // Gulp.js configuration
 
-
 /****************	 WHAT TO INSTALL 	*********************************************************************
-1) gulp-imagemin -> npm install gulp-imagemin --save-dev  // komprimuje obrazkove soubory
-2) gulp-newer -> npm install gulp-newer --save-dev // nahrává pouze nové obrázky
-3) del -> npm install del --save-dev // umožňuje mazat soubory
-4) browser-sync -> npm install browser-sync --save-dev
-5) post-css -> npm install gulp-postcss --save-dev
-	5.1) autoprefixer -> npm install autoprefixer --save-dev
-    5.2) cssnano ->  npm install cssnano --save-dev
-6) gulp-cleanhtml -> npm install gulp-cleanhtml --save-dev
-7) gulp-size -> npm install gulp-size --save-dev
-8) gulp-uglify -> npm install gulp-uglify --save-dev
-9) gulp-rename -> npm install gulp-rename --save-dev
-10) gulp-sass -> npm install gulp-sass --save-dev
-11) gulp-wait -> npm install gulp-wait
-12) panini -> npm install panini --save-dev
-13) gulp-purgecss -> npm install gulp-purgecss --save-dev
+• gulp --> npm install gulp --save-dev //you need basic gulp
+• del --> npm install del --save-dev // deletes files
+• browser-sync --> npm install browser-sync --save-dev
+• babel --> npm install gulp-babel @babel/core @babel/preset-env --save-dev
+• sass --> npm install gulp-sass node-sass --save-dev
+• gulp-rename --> npm install gulp-rename --save-dev
+• gulp-size --> npm install gulp-size --save-dev
+• gulp-imagemin --> npm install gulp-imagemin --save-dev  // compromise images
+• gulp-uglify --> npm install gulp-uglify --save-dev
+• gulp-newer --> npm install gulp-newer --save-dev // loads only new files
+• gulp-cleanhtml --> npm install gulp-cleanhtml --save-dev
+• gulp-wait2 --> npm install gulp-wait2 --save-dev
+• post-css --> npm install gulp-postcss --save-dev
+    • postcss-preset-env --> npm install postcss-preset-env --save-dev
+    • autoprefixer --> npm install autoprefixer --save-dev
+    • cssnano -->  npm install cssnano --save-dev
+    • stylelint --> npm install stylelint --save-dev
 
-npm install gulp gulp-imagemin gulp-newer del browser-sync gulp-postcss autoprefixer cssnano gulp-cleanhtml gulp-size gulp-uglify gulp-rename gulp-sass gulp-wait panini gulp-purgecss --save-dev
+npm install gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint --save-dev
 
 ********************************************************************************************************/
 
-// include gulp and plugins
-var gulp = require('gulp'),
-
-	imagemin = require('gulp-imagemin'), // load gulp-imagemin plugin
-	newer = require('gulp-newer'),
-    uglify = require('gulp-uglify'),
-	del = require('del'),
-    size = require('gulp-size'),
-	htmlclean = require('gulp-cleanhtml'),
-    postcss = require('gulp-postcss'),
-    autoprefixer = require('autoprefixer'),
-    cssnano = require('cssnano'),
-	rename = require('gulp-rename'),
-    browserSync = require('browser-sync'),
-    wait = require('gulp-wait'),
-    panpanini = require('panini'),
-    gulpsass = require('gulp-sass');
-    purgecss = require("gulp-purgecss");
-
-
-// file locations
-var development,
-    build,
-    images,
-    html,
-    js,
-    php,
-    css,
-    fonts,
-    sass;
+// load gulp and other plugins
+const { src, dest, series, parallel, watch } = require('gulp');
+const del = require('del');
+const browserSync = require('browser-sync');
+const babel = require('gulp-babel');
+const gulpsass = require('gulp-sass');
+const rename = require('gulp-rename');
+const size = require('gulp-size');
+const imagemin = require('gulp-imagemin');
+const uglify = require('gulp-uglify');
+const newer = require('gulp-newer');
+const htmlclean = require('gulp-cleanhtml');
+const wait = require('gulp-wait2');
+const postcss = require('gulp-postcss');
+const postcssPresetEnv = require('postcss-preset-env');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+const stylelint = require('stylelint');
 
 //******************************
 // CHANGE THIS ↓
 //******************************
-	development = 'dev/';
-	build = 'build/';
+const development = 'dev/';
+const build = 'build/';
 //******************************
 
+
 // define in --> original folder | out - output folder
-images = {
+const images = {
 	in: development + 'img/**/*', // select all images in folder /img/ and it's subfolders
 	out: build + 'img/'
 };
 
-html = {
-    in: development + 'html/pages/**/*.html',
-    root: development + 'html/pages/',
-    partials: development + 'html/partials/',
-    layouts: development + 'html/layouts/',
-    helpers: development + 'html/helpers/',
-    data: development + 'html/data/',
-    watch: development + 'html/{layouts,partials,helpers,data}/**/*',
+const humans = {
+    in: development + 'humans/*',
+    out: build
+}
+
+const html = {
+    in: development + 'html/**/*',
     out: build
 };
 
-php = {
-		in:  development + 'libraries/**/*',
-		out: build + 'libraries/'
+const css = {
+    in: development + 'css/**/*',
+    out: build + 'css/'
 };
 
-js = {
+const fonts = {
+    in: development + 'fonts/**/*',
+    out: build + 'css/fonts/'
+};
+
+const js = {
     in: development + 'js/**/*',
     out: build + 'js/'
 };
 
-sass = {
+const sass = {
     in: development + 'sass/style.scss',
     watch: [development + 'sass/**/*'],
     out: build + 'css/',
@@ -101,17 +95,7 @@ sass = {
     }
 };
 
-css = {
-    in: development + 'css/**/*',
-    out: build + 'css/'
-};
-
-fonts = {
-    in: development + 'fonts/**/*',
-    out: build + 'css/fonts/'
-};
-
-syncOptions = {
+const syncOptions = {
     server: {
         baseDir: build,
         //directory: true, // Serve files from the app directory with directory listing
@@ -123,155 +107,164 @@ syncOptions = {
 //******************************
 //	OPTIMIZE IMAGES
 //******************************
-gulp.task('minifyImages', function(){
-    return gulp.src(images.in)
-	.pipe(newer(images.out)) // does image exist?
+
+function minifyImages(cb) {
+    src(images.in)
+    .pipe(newer(images.out))
     .pipe(size({ title: 'Image size BEFORE'}))
-	.pipe(imagemin())
+    .pipe(imagemin())
     .pipe(size({ title: 'Image size AFTER'}))
-	.pipe(gulp.dest(images.out)); // copy from in folder to out folder
-
-});
+	.pipe(dest(images.out)); // copy from in folder to out folder
+    cb();
+}
 
 //******************************
-//	CSS - Normalize
+//	CSS
 //******************************
-gulp.task('copyCss', function(){
-
-    var processes = [
-        autoprefixer({browsers: ['last 2 version']}),
-        cssnano()
+function compileCss(cb) {
+    
+    const processes = [
+        postcssPresetEnv(),
+        autoprefixer(),
+        cssnano(),
     ];
 
-    return gulp.src(css.in)
-        .pipe(newer(css.out))
-        .pipe(size({ title: 'CSS BEFORE'}))
-        .pipe(postcss(processes))
-        .pipe(size({ title: 'CSS AFTER'}))
-        .pipe(gulp.dest(css.out));
-});
+    src(css.in)
+    .pipe(newer(css.out))
+    .pipe(size({ title: 'CSS BEFORE'}))
+    .pipe(postcss(processes))
+    .pipe(size({ title: 'CSS AFTER'}))
+    .pipe(dest(css.out));
+
+    cb();
+}
 
 //******************************
 //	FONTS
 //******************************
-gulp.task('copyFonts', function(){
-    return gulp.src(fonts.in)
-        .pipe(newer(fonts.out))
-        .pipe(gulp.dest(fonts.out));
-    
-});
+
+function copyFonts(cb) {
+    src(fonts.in)
+    .pipe(newer(fonts.out))
+    .pipe(dest(fonts.out));
+    cb();
+}
 
 //******************************
-//	MINIFY JS
+//	HUMANS
 //******************************
-gulp.task('minifyJs', function() {
-  return gulp.src(js.in)
+
+function copyHumans(cb) {
+    src(humans.in)
+    .pipe(newer(humans.out))
+    .pipe(dest(humans.out));
+    cb();
+}
+
+//******************************
+//	JS
+//******************************
+
+function compileJs(cb) {
+    src(js.in)
     .pipe(newer(js.out))
     .pipe(size({ title: 'JS BEFORE'}))
+    .pipe(babel({
+        presets: ['@babel/env']
+    }))
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(size({ title: 'JS AFTER'}))
-    .pipe(gulp.dest(js.out));
-
-});
-
-//******************************
-//	PHP Libraries
-//******************************
-/*
-gulp.task("copyPhp", function() {
-    return gulp.src(php.in)
-    .pipe(newer(php.out))
-    .pipe(gulp.dest(php.out));
-});
-*/
-
+    .pipe(dest(js.out));
+    cb();
+}
 
 //******************************
 //	SASS
 //******************************
-gulp.task("compileSass", function(){
-    var processes = [
-        autoprefixer({browsers: ['last 2 version']}),
+
+function compileSass(cb) {
+    const processes = [
+        postcssPresetEnv(),
+        autoprefixer(),
         cssnano()  //sass can do it for you, but for me cssnano has better compiler than sass
     ];
-
-    return gulp.src(sass.in)
+    src(sass.in)
     .pipe(wait(300)) // this code ensures that gulp will work in VSCode
     .pipe(gulpsass(sass.sassOptions))
     .pipe(size({ title: 'SASS BEFORE'}))
-    .pipe(purgecss({
-        content: [html.in]
-    }))
     .pipe(postcss(processes))
     .pipe(rename({ suffix: '.min' }))
     .pipe(size({ title: 'SASS AFTER'}))
-    .pipe(gulp.dest(sass.out))
+    .pipe(dest(sass.out))
     .pipe(browserSync.reload({ stream: true })); 
-
-
-});
+    cb();
+}
 
 //******************************
 //	BROWSERSYNC SERVE
 //******************************
-gulp.task("serve", function(){
+function serve(cb) {
     browserSync(syncOptions);
-});
+    cb();
+}
 
 //******************************
-//	PANINI
+//	HTML
 //******************************
 
-gulp.task('compileHtml', function() {
-    panpanini.refresh();
-    return gulp.src(html.in)
-      .pipe(panpanini({
-        root: html.root,
-        layouts: html.layouts,
-        partials: html.partials,
-        helpers: html.helpers,
-        data: html.data
-      }))
-      //.pipe(htmlclean()) -- for minifing html
-      .pipe(gulp.dest(html.out))
-  });
+function compileHtml(cb) {
+    src(html.in)
+    .pipe(newer(html.out))
+    .pipe(htmlclean())
+    .pipe(dest(html.out));
+    cb();
+}
 
 //******************************
 //	CLEAN BUILD
 //******************************
-gulp.task('clean', function() {
-	del([
+
+function clean(cb) {
+    del([
 		build + '*' // delete all files in build folder
 	]);
-});
+    cb();
+}
+
+//******************************
+// WATCH TASK
+//******************************
+
+function watcher(cb) {
+    
+    //images
+    watch(images.in).on('change', series(minifyImages, browserSync.reload));
+
+    //html
+    watch(html.in).on('change', series(compileHtml, browserSync.reload));
+
+    //sass
+    watch(sass.watch).on('change', series(compileSass, browserSync.reload));
+
+    //css
+    watch(css.in).on('change', series(compileCss, browserSync.reload));
+
+    //fonts
+    watch(fonts.in).on('change', series(copyFonts, browserSync.reload));
+
+    //js
+    watch(js.in).on('change', series(compileJs, browserSync.reload));
+
+    //human
+    watch(humans.in).on('change', series(copyHumans, browserSync.reload));
+
+    cb();
+}
 
 //******************************
 // DEFAULT TASK
 //******************************
 
-gulp.task('default', ['minifyImages', 'compileHtml', 'minifyJs', 'compileSass', 'copyFonts', 'copyCss', 'serve'], function() {
-
-    //watch images
-    gulp.watch(images.in, ['minifyImages', browserSync.reload]);
-
-    //watch changes in html
-    gulp.watch(html.in, ['compileHtml', browserSync.reload]);
-    gulp.watch([html.watch], ['compileHtml', browserSync.reload]);
-
-    //watch sass
-    gulp.watch(sass.watch, ['compileSass']);
-
-    //watch fonty
-    gulp.watch(fonts.in, ['copyFonts', browserSync.reload]);
-
-    //watch js
-    gulp.watch(js.in, ['minifyJs', browserSync.reload]);
-
-    //watch php
-    //gulp.watch(php.in, ['copyPhp']);
-
-    //watch css
-    gulp.watch(css.in, ['copyCss', browserSync.reload]);
-
-});
+exports.clean = clean;
+exports.default = series(parallel(minifyImages, compileHtml, compileJs, compileSass, copyFonts, compileCss, copyHumans), serve, watcher);
