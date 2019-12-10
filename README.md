@@ -1,7 +1,7 @@
 # Web Skeleton Starter Kit
 
 ## Updates
-- December 10, 2019
+December 10, 2019
   - kit has been rewritten to fully support new Gulp 4. Old unsupported packages like `panini` has been deleted 
 
 ## About
