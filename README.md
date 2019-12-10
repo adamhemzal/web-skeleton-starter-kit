@@ -54,42 +54,41 @@ This is a list of packages and plugins used in web starter kit. Every package is
 
 ## How to install and run web starter kit
 1) Download this kit
-
-  ```
-  git clone https://github.com/adamhemzal/web-skeleton-starter-kit.git
-  ```
+    ```
+    git clone https://github.com/adamhemzal/web-skeleton-starter-kit.git
+    ```
 
 2) Initiate project. It will create a `package.json` file
 
-  npm
+    npm
 
-  ```
-  npm init
+    ```
+    npm init
 
-  npm init -y // I recommend using this line, because it will skip the annoying questions.
-  ```
+    npm init -y // I recommend using this line, because it will skip the annoying questions.
+    ```
 
-  yarn
+    yarn
 
-  ```
-  yarn init
+    ```
+    yarn init
 
-  yarn init -y
-  ```  
+    yarn init -y
+    ```  
 
 3) Install all packages. SImply copy and paste the code bellow. The same code can be found in `gulpfile.js`
 
-  npm
+    npm
 
-  ```
-  npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint 
-  ```
+    ```
+    npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint 
+    ```
 
-  yarn
+    yarn
 
-  ```
-  yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint
-  ```
+    ```
+    yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint
+    ```
 
 ## Workflow
 TODO
