@@ -6,6 +6,7 @@ February 11, 2020
   - font-size has been rewritten
   - in `index.html` *preconnect* has been added for improving speed of site and basic semantic structure
   - `.gitignore` has been updated
+  
 December 10, 2019
   - kit has been rewritten to fully support new Gulp 4. Old unsupported packages like `panini` has been deleted
   - kit has been teste, all is working 
