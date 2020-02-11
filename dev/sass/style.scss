@@ -1,5 +1,4 @@
 //START FONTS
-
 // you can choose which fonts you want. I prefer fontello, because it will include only that icons which you want without adding more icons. It saves you some kBs.
 
 //@import "font-awesome/font-awesome.scss";
@@ -11,6 +10,7 @@
 //BASIC
 @import "_reboot.scss";
 @import "_variables.scss";
+@import "bootstrap-grid/grid.scss";
 @import "_mixins.scss";
 
 //REST

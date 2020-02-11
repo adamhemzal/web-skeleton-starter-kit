@@ -1,8 +1,14 @@
 # Web Skeleton Starter Kit
 
 ## Updates
+February 11, 2020
+  - added [bootstrap grid](https://github.com/m-spyratos/bootstrap-4-grid)
+  - font-size has been rewritten
+  - in `index.html` *preconnect* has been added for improving speed of site and basic semantic structure
+  - `.gitignore` has been updated
 December 10, 2019
-  - kit has been rewritten to fully support new Gulp 4. Old unsupported packages like `panini` has been deleted 
+  - kit has been rewritten to fully support new Gulp 4. Old unsupported packages like `panini` has been deleted
+  - kit has been teste, all is working 
 
 ## About
 This is a starter kit for creating **static** websites. It is useful for everyone who creates websites regularly and want to automate some processes for example - minifying images, css, js, etc..
@@ -26,10 +32,10 @@ Web starter kit uses a NPM package **gulp (version 4)** to automate processes an
 |-.browserslistrc
 ```
 
-## Included packages in Gulp.js
+## Included packages
 This is a list of packages and plugins used in web starter kit. Every package is run by Gulp and help you in web development workflow
 
-### Included packages:
+### Included packages in Gulp.js:
 - gulp
 - del
 - browser-sync
@@ -47,6 +53,18 @@ This is a list of packages and plugins used in web starter kit. Every package is
   - autoprefixer
   - cssnano
   - stylelint
+
+### Other included packages
+- [LazySizes](http://afarkas.github.io/lazysizes/#examples)
+  - for lazy-loading images
+- [jQuery v3.4.1](https://jquery.com/)
+  - for making quick changes and improving interactivity on website
+- [font-awesome](https://fontawesome.com/v4.7.0/)
+  - it's still functioning and it's free!
+- [fontello](http://fontello.com/)
+- [bootstrap grid](https://github.com/m-spyratos/bootstrap-4-grid)
+- [humans.txt](http://humanstxt.org/Standard.html)
+  - we are still humans who build the web, aren't we? 
 
 ## What you need before to run the web starter kit
 - **node.js**
@@ -76,7 +94,7 @@ This is a list of packages and plugins used in web starter kit. Every package is
     yarn init -y
     ```  
 
-3) Install all packages. SImply copy and paste the code bellow. The same code can be found in `gulpfile.js`
+3) Install all packages. Simply copy and paste the code bellow. The same code can be found in `gulpfile.js`
 
     npm
 

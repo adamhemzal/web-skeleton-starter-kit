@@ -5,48 +5,84 @@
     <title>Title</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="robots" content="index, follow" />
     <meta name="keywords" content="{{site-keywords}}">
     <meta name="description" content="{{site-decription}}" >
     <meta name="author" content="Adam Hemžal" >
     <meta name="theme-color" content="#96c21b" />
 
-    <meta property="og:title" content="">
-    <meta property="og:description" content="">
-    <meta property="og:image" content="">
+    <!-- preconnect fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Quicksand:400,700" crossorigin>
+
+    <!-- socials -->
+    <meta property="og:title" content="{{site-title}}">
+    <meta property="og:description" content="{{site-decription}}">
+    <meta property="og:image" content="{{site-image-url}}">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="">
-    <meta property="og:url" content="">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:site_name" content="{{site-name}}">
+    <meta property="og:url" content="{{site-url}}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="">
+    <meta name="twitter:image" content="{{url}}">
+    <meta name="twitter:title" content="{{Small Island Developing States Photo Submission}}" />
+    <meta name="twitter:site" content="{{@username}}">
 
     <!-- Include favicon-->
     <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.ico" >
 
     <!-- Include fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Quicksand:400,700">
+    <link rel='dns-prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400|Quicksand:400,700' />
+    <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Quicksand:400,700">
     
     <!-- Include CSS-->
     <link rel="stylesheet" type="text/css" href="css/style.min.css">
 
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/lazysizes.min.js" defer></script>
+
+    <!-- Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-00000-00', {
+          'legacyCookieDomain': 'XXX',
+          'siteSpeedSampleRate': 50,
+          'useAmpClientId': true
+        });
+        ga('require', 'trackomatic');
+        ga('send', 'pageview');
+      </script>
+      <script async src='https://www.google-analytics.com/analytics.js'></script>
+
     <!-- Include humans.txt-->
     <link rel="author" type="text/plain" href="humans.txt">
 
-    <script src="js/jquery.min.js" defer></script>
-    <script src="js/lazysizes.min.js" defer></script>
 </head> 
 <body>
+    
+    <header>
+        <nav role="navigation">
+            <ul>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main role="main">
+    </main>
 
-    <h1>Lorem ipsum...</h1>
-    <p>Hello</p>
+    <footer role="contentinfo">
+    </footer>
 
     <!-- lazyloading image example: -->
     <img
         alt="100%x200"
         data-sizes="auto"
-        data-src="medium.jpg"
         data-srcset="small.jpg 300w,
 	        medium.jpg 600w,
-	        big.jpg 900w"
+            big.jpg 900w"
+        data-src="medium.jpg"
         class="lazyload" 
     />
 
