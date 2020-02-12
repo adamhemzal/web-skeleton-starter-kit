@@ -111,3 +111,11 @@ This is a list of packages and plugins used in web starter kit. Every package is
 
 ## Workflow
 TODO
+
+### Using Fontello
+- visit [Fontello](http://fontello.com/) site
+- select icons which you want and need
+- download icons using **Download** button on the website
+- unzip file and open `fontello-codes.css`
+- copy all code from `fontello-codes.css` to the bottom of the file `dev/sass/fontello/_main-fontello.scss` and replace the previous icons
+- if you want to use fontello, check the line `@import "fontello/fontello.scss";` in file `style.scss` if it is uncommented
