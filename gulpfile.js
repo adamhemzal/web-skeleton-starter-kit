@@ -224,7 +224,6 @@ function serve(cb) {
 function compileHtml(cb) {
     panini.refresh();
     src(html.in)
-    .pipe(newer(html.out))
     .pipe(panini({
         root: html.root,
         layouts: html.layouts,
@@ -259,7 +258,6 @@ function watcher(cb) {
 
     //html
     watch(html.in).on('change', series(compileHtml, browserSync.reload));
-    watch(html.watch).on('change', series(compileHtml, browserSync.reload));
 
     //sass
     watch(sass.watch).on('change', series(compileSass, browserSync.reload));
