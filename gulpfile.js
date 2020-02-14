@@ -13,14 +13,15 @@
 • gulp-newer --> npm install gulp-newer --save-dev // loads only new files
 • gulp-cleanhtml --> npm install gulp-cleanhtml --save-dev
 • gulp-wait2 --> npm install gulp-wait2 --save-dev
+• panini --> npm install panini --save-dev
 • post-css --> npm install gulp-postcss --save-dev
     • postcss-preset-env --> npm install postcss-preset-env --save-dev
     • autoprefixer --> npm install autoprefixer --save-dev
     • cssnano -->  npm install cssnano --save-dev
-    • stylelint --> npm install stylelint --save-dev
+    // stylelint --> npm install stylelint --save-dev NOT INCLUDED YET
 
-npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint
-yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint
+npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
 ********************************************************************************************************/
 
 // load gulp and other plugins
@@ -40,7 +41,8 @@ const postcss = require('gulp-postcss');
 const postcssPresetEnv = require('postcss-preset-env');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const stylelint = require('stylelint');
+const panini = require('panini');
+//const stylelint = require('stylelint');
 
 //******************************
 // CHANGE THIS ↓
@@ -62,7 +64,13 @@ const humans = {
 }
 
 const html = {
-    in: development + 'html/**/*',
+    in: development + 'html/pages/**/*.html',
+    root: development + 'html/pages/',
+    partials: development + 'html/partials/',
+    layouts: development + 'html/layouts/',
+    helpers: development + 'html/helpers/',
+    data: development + 'html/data/',
+    watch: development + 'html/{layouts,partials,helpers,data}/**/*',
     out: build
 };
 
@@ -214,8 +222,16 @@ function serve(cb) {
 //******************************
 
 function compileHtml(cb) {
+    panini.refresh();
     src(html.in)
     .pipe(newer(html.out))
+    .pipe(panini({
+        root: html.root,
+        layouts: html.layouts,
+        partials: html.partials,
+        helpers: html.helpers,
+        data: html.data
+    }))
     .pipe(htmlclean())
     .pipe(dest(html.out));
     cb();
@@ -243,6 +259,7 @@ function watcher(cb) {
 
     //html
     watch(html.in).on('change', series(compileHtml, browserSync.reload));
+    watch(html.watch).on('change', series(compileHtml, browserSync.reload));
 
     //sass
     watch(sass.watch).on('change', series(compileSass, browserSync.reload));

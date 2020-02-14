@@ -1,6 +1,9 @@
 # Web Skeleton Starter Kit
 
 ## Updates
+February 14, 2020
+- added `panini` package. It helps to build larger site using html templates. For more information check [panini website](https://get.foundation/sites/docs/panini.html)
+
 February 11, 2020
   - added [bootstrap grid](https://github.com/m-spyratos/bootstrap-4-grid)
   - font-size has been rewritten
@@ -8,8 +11,8 @@ February 11, 2020
   - `.gitignore` has been updated
   
 December 10, 2019
-  - kit has been rewritten to fully support new Gulp 4. Old unsupported packages like `panini` has been deleted
-  - kit has been teste, all is working 
+  - kit has been rewritten to fully support new Gulp 4
+  - kit has been tested, all is working 
 
 ## About
 This is a starter kit for creating **static** websites. It is useful for everyone who creates websites regularly and want to automate some processes for example - minifying images, css, js, etc..
@@ -49,11 +52,11 @@ This is a list of packages and plugins used in web starter kit. Every package is
 - gulp-newer
 - gulp-cleanhtml
 - gulp-wait2
+- [panini](https://github.com/foundation/panini)
 - post-css
   - postcss-preset-env
   - autoprefixer
   - cssnano
-  - stylelint
 
 ### Other included packages
 - [LazySizes](http://afarkas.github.io/lazysizes/#examples)
@@ -63,7 +66,8 @@ This is a list of packages and plugins used in web starter kit. Every package is
 - [font-awesome](https://fontawesome.com/v4.7.0/)
   - it's still functioning and it's free!
 - [fontello](http://fontello.com/)
-- [bootstrap grid](https://github.com/m-spyratos/bootstrap-4-grid)
+  - you don't need all icons in font-awesome. This tool allows you to pick and use only icons which you are going to use
+- [bootstrap 4 grid](https://github.com/m-spyratos/bootstrap-4-grid)
 - [humans.txt](http://humanstxt.org/Standard.html)
   - we are still humans who build the web, aren't we? 
 
@@ -77,15 +81,7 @@ This is a list of packages and plugins used in web starter kit. Every package is
     git clone https://github.com/adamhemzal/web-skeleton-starter-kit.git
     ```
 
-2) Initiate project. It will create a `package.json` file
-
-    npm
-
-    ```
-    npm init
-
-    npm init -y // I recommend using this line, because it will skip the annoying questions.
-    ```
+2) Initiate project. It'll create a `package.json` file. **I highly suggest using [yarn](https://yarnpkg.com/)** instead of npm
 
     yarn
 
@@ -94,19 +90,28 @@ This is a list of packages and plugins used in web starter kit. Every package is
 
     yarn init -y
     ```  
+    
+    npm
+
+    ```
+    npm init
+
+    npm init -y // I recommend using this line, because it'll skip the annoying questions.
+    ```
+
 
 3) Install all packages. Simply copy and paste the code bellow. The same code can be found in `gulpfile.js`
 
     npm
 
     ```
-    npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint 
+    npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
     ```
 
     yarn
 
     ```
-    yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer stylelint
+    yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
     ```
 
 ## Workflow
