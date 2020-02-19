@@ -1,6 +1,9 @@
 # Web Skeleton Starter Kit
 
 ## Updates
+February 19, 2020
+- changed jQuery container in `app.js` according to [this](https://stackoverflow.com/questions/3528509/document-readyfunction-vs-function) discussion
+
 February 14, 2020
 - added `panini` package. It helps to build larger site using html templates. For more information check [panini website](https://get.foundation/sites/docs/panini.html)
 
