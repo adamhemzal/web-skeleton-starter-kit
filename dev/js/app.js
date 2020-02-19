@@ -1,4 +1,4 @@
-$(document).ready(function(){
+jQuery(function($){
 
     //SOME JQUERY CODE HERE
 
