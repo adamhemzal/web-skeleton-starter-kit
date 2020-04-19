@@ -6,6 +6,7 @@
 • browser-sync --> npm install browser-sync --save-dev
 • babel --> npm install gulp-babel @babel/core @babel/preset-env --save-dev
 • sass --> npm install gulp-sass node-sass --save-dev
+• sourcemaps --> npm install gulp-sourcemaps --save-dev
 • gulp-rename --> npm install gulp-rename --save-dev
 • gulp-size --> npm install gulp-size --save-dev
 • gulp-imagemin --> npm install gulp-imagemin --save-dev  // compromise images
@@ -20,8 +21,8 @@
     • cssnano -->  npm install cssnano --save-dev
     // stylelint --> npm install stylelint --save-dev NOT INCLUDED YET
 
-npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
-yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
 ********************************************************************************************************/
 
 // load gulp and other plugins
@@ -41,6 +42,7 @@ const postcss = require('gulp-postcss');
 const postcssPresetEnv = require('postcss-preset-env');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
+const sourcemaps = require('gulp-sourcemaps');
 const panini = require('panini');
 //const stylelint = require('stylelint');
 
@@ -94,12 +96,12 @@ const sass = {
     watch: [development + 'sass/**/*'],
     out: build + 'css/',
     sassOptions: {
-        outputStyle: 'nested', // nested(stay readable) or compresed(minified)
+        outputStyle: 'expanded', // nested(stay readable), expanded, compact, compresed(minified)
         //imagePath: '../img/', //setup a path to images, you don't have to write /img in you sass
         precision: 2, //calculating - eg. select 2 ---> then 15.00
         includePaths: ['dev/sass'],
         //onError: browserSync.notify,
-        errLogToConsole: true
+        //sourceMap: true,
     }
 };
 
@@ -199,11 +201,13 @@ function compileSass(cb) {
     ];
     src(sass.in)
     .pipe(wait(300)) // this code ensures that gulp will work in VSCode
-    .pipe(gulpsass(sass.sassOptions))
+    .pipe(sourcemaps.init({loadMaps:true}))
+    .pipe(gulpsass(sass.sassOptions).on('error', gulpsass.logError))
     .pipe(size({ title: 'SASS BEFORE'}))
     .pipe(postcss(processes))
     .pipe(rename({ suffix: '.min' }))
     .pipe(size({ title: 'SASS AFTER'}))
+    .pipe(sourcemaps.write('.'))
     .pipe(dest(sass.out))
     .pipe(browserSync.reload({ stream: true })); 
     cb();

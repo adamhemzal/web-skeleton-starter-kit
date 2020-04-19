@@ -1,6 +1,9 @@
 # Web Skeleton Starter Kit
 
 ## Updates
+April 19, 2020
+- added sourcemaps and error handling for sass for better development
+
 February 19, 2020
 - changed jQuery container in `app.js` according to [this](https://stackoverflow.com/questions/3528509/document-readyfunction-vs-function) discussion
 
