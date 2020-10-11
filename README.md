@@ -3,7 +3,7 @@
 ## Updates
 
 October 11, 2020
-- added support for [PostCSS 8.0](https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users) and resolved problems with [panini](https://github.com/foundation/panini)
+- added support for [PostCSS 8.0](https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users) and resolved problems with [panini](https://github.com/foundation/panini). Added support for mobile-first approach in SASS
 
 April 19, 2020
 - added sourcemaps and error handling for sass for better development
