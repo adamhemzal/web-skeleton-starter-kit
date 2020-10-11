@@ -1,6 +1,10 @@
 # Web Skeleton Starter Kit
 
 ## Updates
+
+October 11, 2020
+- added support for [PostCSS 8.0](https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users) and resolved problems with [panini](https://github.com/foundation/panini)
+
 April 19, 2020
 - added sourcemaps and error handling for sass for better development
 
@@ -18,7 +22,7 @@ February 11, 2020
   
 December 10, 2019
   - kit has been rewritten to fully support new Gulp 4
-  - kit has been tested, all is working 
+  - kit has been tested, eveything is working 
 
 ## About
 This is a starter kit for creating **static** websites. It is useful for everyone who creates websites regularly and want to automate some processes for example - minifying images, css, js, etc..
@@ -58,6 +62,7 @@ This is a list of packages and plugins used in web starter kit. Every package is
 - gulp-newer
 - gulp-cleanhtml
 - gulp-wait2
+- gulp-postcss
 - [panini](https://github.com/foundation/panini)
 - post-css
   - postcss-preset-env
@@ -94,7 +99,7 @@ This is a list of packages and plugins used in web starter kit. Every package is
     ```
     yarn init
 
-    yarn init -y
+    yarn init -y // I recommend using this line, because it'll skip the annoying questions.
     ```  
     
     npm
@@ -106,19 +111,36 @@ This is a list of packages and plugins used in web starter kit. Every package is
     ```
 
 
-3) Install all packages. Simply copy and paste the code bellow. The same code can be found in `gulpfile.js`
-
-    npm
-
-    ```
-    npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
-    ```
+3) Install all packages. Simply copy and paste the code bellow. The same code can be found in a comment in `gulpfile.js`
 
     yarn
 
     ```
-    yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+    yarn add --dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+
     ```
+
+    npm
+
+    ```
+    npm install --save-dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+
+    ```
+
+4) Run the `gulpfile.js`
+
+    yarn
+
+    ```
+    yarn gulp
+    ```
+
+    npm
+
+    ```
+    npm gulp
+    ```
+
 
 ## Workflow
 TODO

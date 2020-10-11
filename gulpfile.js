@@ -15,14 +15,15 @@
 • gulp-cleanhtml --> npm install gulp-cleanhtml --save-dev
 • gulp-wait2 --> npm install gulp-wait2 --save-dev
 • panini --> npm install panini --save-dev
-• post-css --> npm install gulp-postcss --save-dev
+• post-css --> npm install postcss --save-dev
+• gulp-post-css --> npm install gulp-postcss --save-dev
     • postcss-preset-env --> npm install postcss-preset-env --save-dev
     • autoprefixer --> npm install autoprefixer --save-dev
     • cssnano -->  npm install cssnano --save-dev
     // stylelint --> npm install stylelint --save-dev NOT INCLUDED YET
 
-npm install --save-dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
-yarn add --dev gulp del browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+npm install --save-dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+yarn add --dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
 ********************************************************************************************************/
 
 // load gulp and other plugins
