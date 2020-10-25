@@ -73,7 +73,7 @@ const html = {
     layouts: development + 'html/layouts/',
     helpers: development + 'html/helpers/',
     data: development + 'html/data/',
-    watch: development + 'html/{layouts,partials,helpers,data}/**/*',
+    watch: development + 'html/{layouts,partials,pages,helpers,data}/**/*',
     out: build
 };
 
@@ -93,7 +93,7 @@ const js = {
 };
 
 const sass = {
-    in: development + 'sass/style.scss',
+    in: [development + 'sass/style.scss'],
     watch: [development + 'sass/**/*'],
     out: build + 'css/',
     sassOptions: {
