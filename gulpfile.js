@@ -97,7 +97,7 @@ const sass = {
     watch: [development + 'sass/**/*'],
     out: build + 'css/',
     sassOptions: {
-        outputStyle: 'expanded', // nested(stay readable), expanded, compact, compresed(minified)
+        outputStyle: 'compact', // nested(stay readable), expanded, compact, compresed(minified)
         //imagePath: '../img/', //setup a path to images, you don't have to write /img in you sass
         precision: 2, //calculating - eg. select 2 ---> then 15.00
         includePaths: ['dev/sass'],

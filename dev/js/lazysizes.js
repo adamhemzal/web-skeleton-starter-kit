@@ -1,3 +1,8 @@
+/*
+* https://github.com/aFarkas/lazysizes
+*
+*/
+
 (function(window, factory) {
 	var lazySizes = factory(window, window.document, Date);
 	window.lazySizes = lazySizes;

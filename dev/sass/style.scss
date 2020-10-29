@@ -1,18 +1,21 @@
 //START FONTS
 // you can choose which fonts you want. I prefer fontello, because it will include only that icons which you want without adding more icons. It saves you some kBs.
 
-//@import "font-awesome/font-awesome.scss";
+@import "font-awesome/font-awesome";
 //OR
-@import "fontello/fontello.scss";
+@import "fontello/fontello";
 
 //END FONTS
 
 //BASIC
-@import "_reboot.scss";
-@import "_variables.scss";
-@import "bootstrap-grid/grid.scss";
-@import "_mixins.scss";
+@import "reboot";
+@import "variables";
+@import "bootstrap-grid/grid";
+@import "mixins";
 
 //REST
-@import "_utilities.scss";
-@import "_global.scss";
+// If you are craeting for wordpress theme - you should use this style. Otherwise please comment it
+@import "wordpress-core";
+
+@import "utilities";
+@import "global";

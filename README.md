@@ -2,6 +2,11 @@
 
 ## Updates
 
+October 29, 2020
+- deleted `!` in **font-awesome** and **bootstrap-grid** because `cssnano` in gulp doesn't delete comments with `/*!` 
+- added `wordpress-core.scss` for anyone who is building themes for WordPress
+- added markup for menu 
+
 October 11, 2020
 - added support for [PostCSS 8.0](https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users) and resolved problems with [panini](https://github.com/foundation/panini). Added support for mobile-first approach in SASS
 
