@@ -2,6 +2,9 @@
 
 ## Updates
 
+November 07, 2020
+- added folder `img` where you can put all your images for the website
+
 October 29, 2020
 - deleted `!` in **font-awesome** and **bootstrap-grid** because `cssnano` in gulp doesn't delete comments with `/*!` 
 - added `wordpress-core.scss` for anyone who is building themes for WordPress
