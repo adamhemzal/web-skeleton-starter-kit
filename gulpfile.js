@@ -93,7 +93,7 @@ const js = {
 };
 
 const sass = {
-    in: [development + 'sass/style.scss'],
+    in: [development + 'sass/style.scss', development + 'sass/fonts.scss'],
     watch: [development + 'sass/**/*'],
     out: build + 'css/',
     sassOptions: {

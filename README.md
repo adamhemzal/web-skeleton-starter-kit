@@ -2,6 +2,10 @@
 
 ## Updates
 
+November 16, 2020
+- added `_wordpress_editor-styles.scss` for Gutenberg support. 
+- added `fonts.scss` for custom local font support 
+
 November 07, 2020
 - added folder `img` where you can put all your images for the website
 
