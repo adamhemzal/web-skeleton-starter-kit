@@ -7,57 +7,13 @@ site-website-name: Default Site Name
 site-twitter-name-account: '@username'
 ---
 
-<header>
-    <nav role="navigation">
-        <div class="main-menu-container">
-            <ul class="menu">
-                <li class="menu-item"><a href="#">DSA</a></li>
-                <li class="menu-item"><a href="#">YXC</a></li>
-                <li class="menu-item menu-item-has-children">
-                    <a href="#">More</a>
-                    <ul class="sub-menu">
-                        <li class="menu-item"><a href="#">Test 1</a></li>
-                        <li class="menu-item"><a href="#">Test 2</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item"><a href="#">Xy</a></li>
-            </ul>
-        </div>
-        <div class="sidebar-layout">
-            <p class="sidebar-text">Menu</p>
-            <div class="sidebar-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        <div class="sidebar">
-            <ul class="menu">
-                <li class="menu-item"><a href="#">DSA</a></li>
-                <li class="menu-item"><a href="#">YXC</a></li>
-                <li class="menu-item menu-item-has-children">
-                    <a href="#">More</a>
-                    <ul class="sub-menu">
-                        <li class="menu-item"><a href="#">Test 1</a></li>
-                        <li class="menu-item"><a href="#">Test 2</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item"><a href="#">Xy</a></li>
-            </ul>
-            <div class="social-links-sidebar">
-                <a href=""><i class="fa fa-phone" aria-hidden="true"></i></a>
-            </div>
-        </div>
-
-    </nav>
-</header>
+{{> header}}
 
 <main role="main">
     <h1>Hello World</h1>
 </main>
 
-<footer role="contentinfo">
-</footer>
+{{> footer}}
 
 <!-- lazyloading image example: -->
 <img

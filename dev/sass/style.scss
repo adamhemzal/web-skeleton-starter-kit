@@ -3,19 +3,23 @@
 
 @import "font-awesome/font-awesome";
 //OR
-@import "fontello/fontello";
+//@import "fontello/fontello";
 
 //END FONT ICONS
 
-//BASIC
+
+
+//BOOTSTRAP + CUSTOM REBOOT
 @import "reboot";
+@import "bootstrap/bootstrap";
+
+//BASIC
 @import "variables";
-@import "bootstrap-grid/grid";
 @import "mixins";
 
 //REST
 // If you are craeting for wordpress theme - you should use this style. Otherwise please comment it
-@import "wordpress-core";
+// @import "wordpress-core";
 
 @import "utilities";
 @import "global";

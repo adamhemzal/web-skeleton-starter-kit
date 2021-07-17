@@ -2,6 +2,12 @@
 
 ## Updates
 
+July 12, 2021
+- added `PurgeCSS` to `gulpfile.js`
+- added `bootstrap` v 5.0 to the `sass` folder. Thanks to the `PurgeCSS` there is no need to comment bootstrap modules
+- added folder `partials` containing `footer.html` and `header.html`. You can add other partials as you want by creating new file to the folder partials.
+- added `tailwind.config.js` for future implementation of `TailwindCSS`
+
 November 16, 2020
 - added `_wordpress_editor-styles.scss` for Gutenberg support. 
 - added `fonts.scss` for custom local font support 

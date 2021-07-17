@@ -14,16 +14,19 @@
 • gulp-newer --> npm install gulp-newer --save-dev // loads only new files
 • gulp-cleanhtml --> npm install gulp-cleanhtml --save-dev
 • gulp-wait2 --> npm install gulp-wait2 --save-dev
+• gulp-purgecss --> npm install gulp-purgecss --save-dev
 • panini --> npm install panini --save-dev
 • post-css --> npm install postcss --save-dev
+• gulp-jsonminify -> npm install gulp-jsonminify --save-dev
 • gulp-post-css --> npm install gulp-postcss --save-dev
     • postcss-preset-env --> npm install postcss-preset-env --save-dev
     • autoprefixer --> npm install autoprefixer --save-dev
     • cssnano -->  npm install cssnano --save-dev
+    • cssnano advanced --> npm install cssnano-preset-advanced --save-dev
     // stylelint --> npm install stylelint --save-dev NOT INCLUDED YET
 
-npm install --save-dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
-yarn add --dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano autoprefixer panini
+npm install --save-dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano cssnano-preset-advanced autoprefixer panini gulp-purgecss gulp-jsonminify
+yarn add --dev gulp del postcss browser-sync gulp-babel @babel/core @babel/preset-env gulp-sass gulp-sourcemaps node-sass gulp-rename gulp-size gulp-imagemin gulp-uglify gulp-newer gulp-cleanhtml gulp-wait2 gulp-postcss postcss-preset-env cssnano cssnano-preset-advanced autoprefixer panini gulp-purgecss gulp-jsonminify
 ********************************************************************************************************/
 
 // load gulp and other plugins
@@ -31,7 +34,7 @@ const { src, dest, series, parallel, watch } = require('gulp');
 const del = require('del');
 const browserSync = require('browser-sync');
 const babel = require('gulp-babel');
-const gulpsass = require('gulp-sass');
+const gulpsass = require('gulp-sass')(require('node-sass'));
 const rename = require('gulp-rename');
 const size = require('gulp-size');
 const imagemin = require('gulp-imagemin');
@@ -45,6 +48,8 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const sourcemaps = require('gulp-sourcemaps');
 const panini = require('panini');
+const purgecss = require('gulp-purgecss');
+const jsonminify = require('gulp-jsonminify');
 //const stylelint = require('stylelint');
 
 //******************************
@@ -97,7 +102,7 @@ const sass = {
     watch: [development + 'sass/**/*'],
     out: build + 'css/',
     sassOptions: {
-        outputStyle: 'compact', // nested(stay readable), expanded, compact, compresed(minified)
+        outputStyle: 'nested', // nested(stay readable), expanded, compact, compresed(minified)
         //imagePath: '../img/', //setup a path to images, you don't have to write /img in you sass
         precision: 2, //calculating - eg. select 2 ---> then 15.00
         includePaths: ['dev/sass'],
@@ -137,13 +142,21 @@ function compileCss(cb) {
     const processes = [
         postcssPresetEnv(),
         autoprefixer(),
-        cssnano(),
+        cssnano({
+            preset: ['advanced', {
+                // preset options here, e.g...
+                discardComments: { removeAll: true }
+            }]
+        }),
     ];
 
     src(css.in)
     .pipe(newer(css.out))
     .pipe(size({ title: 'CSS BEFORE'}))
     .pipe(postcss(processes))
+    .pipe(purgecss({
+        content: ['dev/html/**/*']
+    }))
     .pipe(size({ title: 'CSS AFTER'}))
     .pipe(dest(css.out));
 
@@ -198,7 +211,12 @@ function compileSass(cb) {
     const processes = [
         postcssPresetEnv(),
         autoprefixer(),
-        cssnano()  //sass can do it for you, but for me cssnano has better compiler than sass
+        cssnano({
+            preset: ['advanced', {
+                // preset options here, e.g...
+                discardComments: { removeAll: true }
+            }]
+        })  //sass can do it for you, but for me cssnano has better compiler than sass
     ];
     src(sass.in)
     .pipe(wait(300)) // this code ensures that gulp will work in VSCode
@@ -208,6 +226,9 @@ function compileSass(cb) {
     .pipe(postcss(processes))
     .pipe(rename({ suffix: '.min' }))
     .pipe(size({ title: 'SASS AFTER'}))
+    .pipe(purgecss({
+        content: ['dev/html/**/*']
+    }))
     .pipe(sourcemaps.write('.'))
     .pipe(dest(sass.out))
     .pipe(browserSync.reload({ stream: true })); 
@@ -217,6 +238,8 @@ function compileSass(cb) {
 //******************************
 //	BROWSERSYNC SERVE
 //******************************
+
+// gulp serve
 function serve(cb) {
     browserSync(syncOptions);
     cb();
@@ -226,6 +249,7 @@ function serve(cb) {
 //	HTML
 //******************************
 
+// gulp compileHtml
 function compileHtml(cb) {
     panini.refresh();
     src(html.in)
@@ -245,6 +269,7 @@ function compileHtml(cb) {
 //	CLEAN BUILD
 //******************************
 
+// gulp clean
 function clean(cb) {
     del([
 		build + '*' // delete all files in build folder
@@ -256,13 +281,14 @@ function clean(cb) {
 // WATCH TASK
 //******************************
 
+// gulp watch
 function watcher(cb) {
     
     //images
     watch(images.in).on('change', series(minifyImages, browserSync.reload));
 
     //html
-    watch(html.in).on('change', series(compileHtml, browserSync.reload));
+    watch(html.watch).on('change', series(compileHtml, browserSync.reload));
 
     //sass
     watch(sass.watch).on('change', series(compileSass, browserSync.reload));
@@ -286,5 +312,6 @@ function watcher(cb) {
 // DEFAULT TASK
 //******************************
 
+// gulp
 exports.clean = clean;
 exports.default = series(parallel(minifyImages, compileHtml, compileJs, compileSass, copyFonts, compileCss, copyHumans), serve, watcher);
